@@ -1,8 +1,8 @@
 import React from 'react';
 
 const Signin = () => {
-  return (
-    <main className="main bg-dark">
+    return (
+        <main className="main bg-dark">
             <section className="sign-in-content">
                 <i className="fa fa-user-circle sign-in-icon"></i>
                 <h1>Sign In</h1>
@@ -22,8 +22,8 @@ const Signin = () => {
                     <button className="sign-in-button">Sign In</button>
                 </form>
             </section>
-    </main>
-  );
+        </main>
+    );
 };
 
 export default Signin;
