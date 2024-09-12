@@ -1,5 +1,5 @@
 import React from 'react';
-import bankLogo from '../assets/img/argentBankLogo.png';
+import bankLogo from '../assets/img/argentBankLogo.webp';
 import { Link } from "react-router-dom";
 
 const Header = () => {
