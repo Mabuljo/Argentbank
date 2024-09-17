@@ -53,7 +53,8 @@ export const userSlice = createSlice({
     
     // si erreur lors de la connexion
     builder.addCase(loginUser.rejected, (state, action) => {
-
+      state.isConnected= false;
+      state.error = action.payload || 'An error occurred';
     });
   },
   },

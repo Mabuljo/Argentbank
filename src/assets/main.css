@@ -289,3 +289,8 @@ html {
     width: 200px;
   }
 }
+
+.error {
+  color: red;
+  text-align: center;
+}
