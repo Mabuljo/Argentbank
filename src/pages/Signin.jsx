@@ -11,8 +11,8 @@ const Signin = () => {
         e.preventDefault();
 
         const loginData = {
-            userName,
-            password,
+            email: userName,
+            password: password
         };
 
         dispatch(loginUser(loginData));

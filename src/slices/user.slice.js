@@ -7,14 +7,20 @@ export const loginUser = createAsyncThunk(
   async (loginData, { rejectWithValue }) => {
     try {
       const response = await axios.post('http://localhost:3001/api/v1/user/login', loginData);
+      console.log("Response data:", response.data);
 
-      if (response.ok) {
-        localStorage.setItem('token', response.data.token);  // Stocke le token dans le localStorage
-        return response.data;
-      } 
-      
+      if (response.status === 200) {
+        const token = response.data.body.token;
+        if (token) {
+          localStorage.setItem('token', token);
+          return response.data.body;
+        } else {
+          return rejectWithValue('Token not found in response');
+        }
+      } else {
+        return rejectWithValue('Invalid login credentials');
+      }
     } catch (error) {
-      // Si une erreur survient, rejeter la promesse avec le message d'erreur
       return rejectWithValue(error.response.data);
     }
   }
