@@ -15,10 +15,10 @@ export const loginUser = createAsyncThunk(
           localStorage.setItem('token', token);
           return response.data.body;
         } else {
-          return rejectWithValue('Token not found in response');
+          return rejectWithValue('Token introuvable');
         }
       } else {
-        return rejectWithValue('Invalid login credentials');
+        return rejectWithValue('identifiants invalides');
       }
     } catch (error) {
       return rejectWithValue(error.response.data);
