@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
-
+import {useDispatch} from 'react-redux';
+import { loginUser } from '../slices/user.slice';
 
 const Signin = () => {
-    const [username, setUserName] = useState('');
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-       
+
+        const loginData = {
+            userName,
+            password,
+        };
+
+        dispatch(loginUser(loginData));
+        console.log(loginData);
     };
 
     return (
@@ -15,14 +24,14 @@ const Signin = () => {
             <section className="sign-in-content">
                 <i className="fa fa-user-circle sign-in-icon"></i>
                 <h1>Sign In</h1>
-                <form on onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div className="input-wrapper">
                         <label htmlFor="username">Username</label>
-                        <input type="text" id="username" required value={username} onChange={(e) =>setUserName(e.target.value)} />
+                        <input type="text" id="username" required value={userName} onChange={(e) => setUserName(e.target.value)} /> 
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" required value={password} onChange={(e) =>setPassword(e.target.value)} />
+                        <input type="password" id="password" required value={password} onChange={(e) => setPassword(e.target.value)} /> 
                     </div>
                     <div className="input-remember">
                         <input type="checkbox" id="remember-me" />
