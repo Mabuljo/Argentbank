@@ -23,7 +23,7 @@ const Signin = () => {
         dispatch(loginUser(loginData));
     };
 
-     // Redirection vers la page "User" après une connexion réussie
+     // Redirection vers la page "User" après la connexion réussie
      useEffect(() => {
         if (isConnected) {
             navigate('/user');
