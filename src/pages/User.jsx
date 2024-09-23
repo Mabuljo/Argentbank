@@ -1,11 +1,15 @@
 import React from 'react';
 import Account from '../components/Account';
+import { useSelector } from 'react-redux';
 
 const User = () => {
+    // Récupérer le prénom et le nom de l'utilisateur depuis l'état global de Redux
+    const { firstName, lastName } = useSelector((state) => state.user);
+
     return (
         <main className="main bg-dark">
             <div className="header">
-                <h1>Welcome back<br />Tony Jarvis!</h1>
+                <h1>Welcome back<br />{firstName} {lastName}!</h1>
                 <button className="edit-button">Edit Name</button>
             </div>
             <h2 className="sr-only">Accounts</h2>

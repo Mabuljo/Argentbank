@@ -6,6 +6,8 @@ import {useNavigate } from 'react-router-dom';
 const Signin = () => {
     const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false); // État pour Remember Me
+    const [ isFormSubmitted, setIsFormSubmitted] = useState(false); // État pour suivre la soumission du formulaire de connexion
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -20,7 +22,8 @@ const Signin = () => {
             password: password
         };
 
-        dispatch(loginUser(loginData));
+        dispatch(loginUser({loginData, rememberMe}));
+        setIsFormSubmitted(true);
     };
 
      // Redirection vers la page "User" après la connexion réussie
@@ -44,10 +47,10 @@ const Signin = () => {
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" required value={password} onChange={(e) => setPassword(e.target.value)} /> 
                     </div>
-                    {/* Affichage du message d'erreur */}
-                    {error && <p className="error">Email ou mot de passe incorrect</p>}
+                    {/* Affichage du message d'erreur après une tentative de connexion */}
+                    {isFormSubmitted && error && <p className="error">Email ou mot de passe incorrect</p>}
                     <div className="input-remember">
-                        <input type="checkbox" id="remember-me" />
+                        <input type="checkbox" id="remember-me" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
                     <button className="sign-in-button" type="submit">Sign In</button>

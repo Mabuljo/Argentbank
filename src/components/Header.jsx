@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import bankLogo from '../assets/img/argentBankLogo.webp';
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../slices/user.slice';
+import { logout, fetchUserByToken } from '../slices/user.slice';
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -10,9 +10,13 @@ const Header = () => {
 
     // Fonction pour gérer la déconnexion
     const handleLogout = () => {
-        localStorage.removeItem('token');  // Retirer le token du localStorage
         dispatch(logout());  // Action pour mettre à jour l'état global de l'utilisateur
     };
+
+    // Fonction pour gérer le rafraichissement de la page et la persistance des infos utilisateur
+    useEffect(() => {
+        dispatch(fetchUserByToken());
+      }, [dispatch]);
 
     return (
         <header>
