@@ -48,34 +48,6 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// Thunk pour récupérer les informations de l'utilisateur à partir du token
-export const fetchUserProfile = createAsyncThunk(
-  'user/fetchUserProfile',
-  async (token, { rejectWithValue }) => {
-    try {
-      const response = await axios.get('http://localhost:3001/api/v1/user/profile', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.status === 200) {
-        return {
-          firstName: response.data.body.firstName,
-          lastName: response.data.body.lastName,
-          email: response.data.body.email,
-          userName: response.data.body.userName,
-          token: token,
-        };
-      } else {
-        return rejectWithValue("Impossible de récupérer les infos de l'utilisateur");
-      }
-    } catch (error) {
-      return rejectWithValue(error.response?.data || 'Une erreur est survenue');
-    }
-  }
-);
-
 //Thunk pour vérifier et récupérer les infos utilisateur s'il y a un token stocké dans local/sessionStorage (gestion du rafraichissement de la page)
 export const fetchUserByToken = createAsyncThunk(
   'user/fetchUserByToken',
@@ -145,20 +117,6 @@ export const userSlice = createSlice({
       state.error = null;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
-      state.isConnected = false;
-      state.error = action.payload || 'Une erreur est survenue';
-    });
-
-    // Si la récupération des informations de l'utilisateur a réussi
-    builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.email = action.payload.email;
-      state.userName = action.payload.userName;
-      state.token = action.payload.token;
-      state.isConnected = true;
-    });
-    builder.addCase(fetchUserProfile.rejected, (state, action) => {
       state.isConnected = false;
       state.error = action.payload || 'Une erreur est survenue';
     });
