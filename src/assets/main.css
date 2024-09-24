@@ -193,7 +193,7 @@ html {
   margin-bottom: 1rem;
 }
 
-.input-wrapper label {
+.input-wrapper label,.inputName label {
   font-weight: bold;
 }
 
@@ -293,4 +293,27 @@ html {
 .error {
   color: red;
   text-align: center;
+}
+
+.formName {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.inputName {
+  display: flex;
+  justify-content: space-evenly;
+  padding-bottom: 1rem;
+}
+
+.buttonEditName {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1rem;
+  padding-top: 1.5rem;
+}
+.buttonForm {
+  padding: 10px 42px;
 }
