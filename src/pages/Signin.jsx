@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../slices/user.slice';
+import { loginUser } from '../slices/login.slice';
 import {useNavigate } from 'react-router-dom';
 
 const Signin = () => {
@@ -12,7 +12,7 @@ const Signin = () => {
     const navigate = useNavigate();
 
     // Récupérer les erreurs et l'état de connexion depuis Redux
-    const { isConnected, error } = useSelector((state) => state.user);
+    const { isConnected, error } = useSelector((state) => state.userLogin);
 
     const handleSubmit = (e) => {
         e.preventDefault();

@@ -17,7 +17,7 @@ const FormEditName = ({firstName, lastName, userName}) => {
                     <label htmlFor="lastname" value= {lastName}>Last name :</label>
                     <input type="text" id="lastname" readOnly /> 
                 </div>
-                <div button className="buttonEditName">
+                <div className="buttonEditName">
                     <button className="edit-button buttonForm" type="submit">Save</button>
                     <button className="edit-button buttonForm">Cancel</button>
                 </div>

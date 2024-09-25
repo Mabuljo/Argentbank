@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import bankLogo from '../assets/img/argentBankLogo.webp';
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { logout, fetchUserByToken } from '../slices/user.slice';
+import { fetchUserByToken, logout } from '../slices/user.slice';
 
 const Header = () => {
     const dispatch = useDispatch();
-    const { isConnected, firstName } = useSelector(state => state.user);
+    const {isConnected, userName } = useSelector(state => state.user); // État de connexion depuis le user
 
     // Fonction pour gérer la déconnexion
     const handleLogout = () => {
@@ -17,7 +17,7 @@ const Header = () => {
     useEffect(() => {
         dispatch(fetchUserByToken());
       }, [dispatch]);
-
+    
     return (
         <header>
             <nav className="main-nav">
@@ -35,17 +35,17 @@ const Header = () => {
                         <>
                             <NavLink to="/user" className="main-nav-item">
                                 <i className="fa fa-user-circle"></i>
-                                {firstName}
+                                <span> {userName}</span>
                             </NavLink>
                             <NavLink to="/" onClick={handleLogout} className="main-nav-item">
                                 <i className="fa fa-sign-out"></i>
-                                Sign Out
+                                <span> Sign Out</span>
                             </NavLink>
                         </>
                     ) : (
                         <NavLink to="/signin" className="main-nav-item">
                             <i className="fa fa-user-circle"></i>
-                            Sign In
+                            <span> Sign In</span>
                         </NavLink>
                     )}
                 </div>
