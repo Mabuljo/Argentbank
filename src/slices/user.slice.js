@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
+import { updateUserName } from './userUpdate.slice';
 
 //Thunk pour vérifier et récupérer les infos utilisateur s'il y a un token stocké dans local/sessionStorage (gestion du rafraichissement de la page)
 export const fetchUserByToken = createAsyncThunk(
@@ -57,6 +58,16 @@ export const userSlice = createSlice({
       state.isConnected = false;
       sessionStorage.removeItem('token');
     },
+    updateUser: (state, action) => {
+      // Mettre à jour les infos du user (notamment userName)
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+      state.email = action.payload.email;
+      state.userName = action.payload.userName;
+      state.token = action.payload.token;
+      state.isConnected = true;
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     // Si la récupération a réussi via le token
@@ -68,13 +79,18 @@ export const userSlice = createSlice({
       state.token = action.payload.token;
       state.isConnected = true;
       state.error = null;
-    });
-    builder.addCase(fetchUserByToken.rejected, (state, action) => {
+    })
+    .addCase(fetchUserByToken.rejected, (state, action) => {
       state.isConnected = false;
       state.error = action.payload || 'Erreur lors du chargement des informations utilisateur';
+    })
+    
+    // Met à jour le userName après l'action de mise à jour réussie
+    .addCase(updateUserName.fulfilled, (state, action) => {
+      state.userName = action.payload.userName; // Met à jour l'username après une modification réussie
     });
   },
 });
 
-export const { logout } = userSlice.actions;
+export const { logout, updateUser } = userSlice.actions;
 export default userSlice.reducer;

@@ -320,3 +320,9 @@ html {
 .buttonForm {
   padding: 10px 42px;
 }
+
+.inputReadOnly {
+  background-color: #ccc;
+  color:#454545;
+  cursor: not-allowed;
+}

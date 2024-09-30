@@ -3,6 +3,7 @@ import bankLogo from '../assets/img/argentBankLogo.webp';
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUserByToken, logout } from '../slices/user.slice';
+import { logoutUserLogin } from '../slices/login.slice';
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -10,7 +11,8 @@ const Header = () => {
 
     // Fonction pour gérer la déconnexion
     const handleLogout = () => {
-        dispatch(logout());  // Action pour mettre à jour l'état global de l'utilisateur
+        dispatch(logout());  // Déconnexion via user slice
+        dispatch(logoutUserLogin());  // Déconnexion via login slice
     };
 
     // Fonction pour gérer le rafraichissement de la page et la persistance des infos utilisateur

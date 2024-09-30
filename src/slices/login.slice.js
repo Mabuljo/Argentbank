@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Thunk pour gérer la connexion utilisateur
 export const loginUser = createAsyncThunk(
-  'user/loginUser',
+  'login/loginUser',
   async ({ loginData, rememberMe }, { rejectWithValue }) => {
     try {
       const response = await axios.post('http://localhost:3001/api/v1/user/login', loginData);
@@ -60,6 +60,18 @@ export const loginSlice = createSlice({
       isConnected: false,
       error: null,
     },
+    reducers: {
+      logoutUserLogin: (state) => {
+          state.firstName = '';
+          state.lastName = '';
+          state.email = '';
+          state.password = '';
+          state.userName = '';
+          state.token = '';
+          state.isConnected = false;
+          state.error = null;
+      },
+    },
     extraReducers: (builder) => {
       // Si la connexion est réussie
       builder.addCase(loginUser.fulfilled, (state, action) => {
@@ -78,4 +90,5 @@ export const loginSlice = createSlice({
     },
 });
 
+export const {logoutUserLogin} = loginSlice.actions;
 export default loginSlice.reducer;
