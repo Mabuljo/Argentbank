@@ -20,7 +20,6 @@ export const fetchUserByToken = createAsyncThunk(
           return {
             firstName: userResponse.data.body.firstName,
             lastName: userResponse.data.body.lastName,
-            email: userResponse.data.body.email,
             userName: userResponse.data.body.userName,
             token: token,
           };
@@ -41,8 +40,6 @@ export const userSlice = createSlice({
   initialState: {
     firstName: '',
     lastName: '',
-    email: '',
-    password: '',
     userName: '',
     token: '',
     isConnected: false,
@@ -52,17 +49,16 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.firstName = '';
       state.lastName = '';
-      state.email = '';
       state.userName = '';
       state.token = '';
       state.isConnected = false;
       sessionStorage.removeItem('token');
+      localStorage.removeItem('token');
     },
     updateUser: (state, action) => {
       // Mettre à jour les infos du user (notamment userName)
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
-      state.email = action.payload.email;
       state.userName = action.payload.userName;
       state.token = action.payload.token;
       state.isConnected = true;
@@ -74,7 +70,6 @@ export const userSlice = createSlice({
     builder.addCase(fetchUserByToken.fulfilled, (state, action) => {
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
-      state.email = action.payload.email;
       state.userName = action.payload.userName;
       state.token = action.payload.token;
       state.isConnected = true;

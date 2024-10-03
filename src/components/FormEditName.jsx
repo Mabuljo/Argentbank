@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserName } from '../slices/userUpdate.slice';
+import { updateUserName, resetUpdateState } from '../slices/userUpdate.slice';
 
 const FormEditName = ({ onCancel }) => {
     const dispatch = useDispatch();
@@ -18,13 +18,20 @@ const FormEditName = ({ onCancel }) => {
     useEffect(() => {
         if (updateSuccess){
             onCancel(); // pour revenir à la div "welcome"
+            dispatch(resetUpdateState()); // Réinitialiser l'état updateSuccess
         }
-    }, [updateSuccess, onCancel]);
+    }, [updateSuccess, onCancel, dispatch]);
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
         await dispatch(updateUserName({ newUserName }));
-    }
+    };
+
+    // Gérer le clic sur Cancel
+    const handleCancel = () => {
+        dispatch(resetUpdateState()); // Réinitialiser l'état de mise à jour
+        onCancel();
+    };
     
     return (
         <div className="header">
@@ -44,7 +51,7 @@ const FormEditName = ({ onCancel }) => {
                 </div>
                 <div className="buttonEditName">
                     <button className="edit-button buttonForm" type="submit">Save</button>
-                    <button className="edit-button buttonForm" onClick={onCancel}>Cancel</button>
+                    <button className="edit-button buttonForm" type="button" onClick={handleCancel}>Cancel</button>
                 </div>
                 {updateError && <p className="error">Une erreur est survenue</p>} 
             </form>

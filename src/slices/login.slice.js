@@ -19,18 +19,9 @@ export const loginUser = createAsyncThunk(
             sessionStorage.setItem('token', token);
           }
 
-          const userResponse = await axios.get('http://localhost:3001/api/v1/user/profile', {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          });
-
-          if (userResponse.status === 200) {
+          if (response.status === 200) {
             return {
-             firstName: userResponse.data.body.firstName,
-              lastName: userResponse.data.body.lastName,
-              email: userResponse.data.body.email,
-              userName: userResponse.data.body.userName,
+              email: response.data.body.email,
               token: token,
             };
           } else {
@@ -51,34 +42,25 @@ export const loginUser = createAsyncThunk(
 export const loginSlice = createSlice({
     name: "userlogin",
     initialState: {
-      firstName: '',
-      lastName: '',
       email: '',
       password: '',
-      userName: '',
       token: '',
       isConnected: false,
       error: null,
     },
     reducers: {
-      logoutUserLogin: (state) => {
-          state.firstName = '';
-          state.lastName = '';
-          state.email = '';
-          state.password = '';
-          state.userName = '';
-          state.token = '';
-          state.isConnected = false;
-          state.error = null;
+    logoutUserLogin: (state) => {
+    state.email = '';
+    state.password = '';
+    state.token = '';
+    state.isConnected = false;
+    state.error = null;
       },
     },
     extraReducers: (builder) => {
       // Si la connexion est réussie
       builder.addCase(loginUser.fulfilled, (state, action) => {
-        state.firstName = action.payload.firstName;
-        state.lastName = action.payload.lastName;
         state.email = action.payload.email;
-        state.userName = action.payload.userName;
         state.token = action.payload.token;
         state.isConnected = true;
         state.error = null;

@@ -26,6 +26,13 @@ const userUpdateSlice = createSlice({
     updateSuccess: false,
     updateError: null,
   },
+  // Pour réinitialiser l'état à la fermeture du formulaire
+  reducers: {
+    resetUpdateState: (state) => {
+        state.updateSuccess = false;
+        state.updateError = null;
+    },
+},
   extraReducers: (builder) => {
     builder.addCase(updateUserName.fulfilled, (state) => {
       state.updateSuccess = true; // Indique que la mise à jour a réussi
@@ -36,5 +43,5 @@ const userUpdateSlice = createSlice({
     });
 },
 });
-
+export const {resetUpdateState} = userUpdateSlice.actions;
 export default userUpdateSlice.reducer;
