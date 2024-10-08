@@ -55,15 +55,6 @@ export const userSlice = createSlice({
       sessionStorage.removeItem('token');
       localStorage.removeItem('token');
     },
-    updateUser: (state, action) => {
-      // Mettre à jour les infos du user (notamment userName)
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.userName = action.payload.userName;
-      state.token = action.payload.token;
-      state.isConnected = true;
-      state.error = null;
-    },
   },
   extraReducers: (builder) => {
     // Si la récupération a réussi via le token
