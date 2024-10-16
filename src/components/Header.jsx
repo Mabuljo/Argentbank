@@ -17,8 +17,8 @@ const Header = () => {
 
     // Fonction pour gérer le rafraichissement de la page et la persistance des infos utilisateur
     useEffect(() => {
-        dispatch(fetchUserByToken());
-      }, [dispatch]);
+    dispatch(fetchUserByToken());
+    }, [dispatch]);
     
     return (
         <header>

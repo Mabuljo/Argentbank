@@ -4,16 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import FormEditName from '../components/FormEditName';
 import { fetchUserByToken } from '../slices/user.slice';
 
-
 const User = () => {
     const dispatch = useDispatch();
-    const { firstName, lastName} = useSelector((state) => state.user); // Récupére les infos du user depuis l'état global de Redux
+    const { firstName, lastName } = useSelector((state) => state.user); // Récupére les infos du user depuis l'état global de Redux
     const [isEditing, setIsEditing] = useState(false);
 
-     // Fonction pour gérer le rafraichissement de la page et la persistance des infos utilisateur
-     useEffect(() => {
-        dispatch(fetchUserByToken());
-      }, [dispatch]);
+    // Fonction pour gérer le rafraichissement de la page et la persistance des infos utilisateur
+    useEffect(() => {
+    dispatch(fetchUserByToken());
+    }, [dispatch,]);
     
     const handleEditForm = () => {
         setIsEditing(true);

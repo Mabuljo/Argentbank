@@ -17,12 +17,12 @@ export const fetchUserByToken = createAsyncThunk(
         });
 
         if (userResponse.status === 200) {
-          return {
-            firstName: userResponse.data.body.firstName,
-            lastName: userResponse.data.body.lastName,
-            userName: userResponse.data.body.userName,
-            token: token,
-          };
+        return {
+        firstName: userResponse.data.body.firstName,
+        lastName: userResponse.data.body.lastName,
+        userName: userResponse.data.body.userName,
+        token: token,
+        };
         } else {
           return rejectWithValue("Impossible de récupérer les informations utilisateur.");
         }
