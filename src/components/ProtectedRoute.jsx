@@ -1,20 +1,15 @@
-import {useEffect} from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const ProtectedRoute = ({ children }) => {
-    const { isConnected } = useSelector((state) => state.user); // Vérifie si l'utilisateur est connecté
-    const navigate = useNavigate()
+    const { token } = useSelector(state => state.user);
 
-    useEffect(() => {
-        if (!isConnected) {
-            // Si l'utilisateur n'est pas connecté, redirige vers la page de connexion
-            navigate('/signin');
-        }
-    }, [isConnected, navigate]);
+    // Vérifie si le token est présent dans le state ou dans le storage
+    const isAuthenticated = token || localStorage.getItem('token') || sessionStorage.getItem('token');
 
-    // Si l'utilisateur est connecté, retourne les enfants
-    return children; 
+    // Si l'utilisateur n'est pas authentifié, il est redirigé vers la page de connexion
+    return isAuthenticated ? children : <Navigate to="/signin" replace />;
+};
 
-    };
 export default ProtectedRoute;
